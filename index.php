@@ -5,7 +5,8 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<?php require './pages/header/header.php'; ?>
+
+<?php require 'pages/header.php'; ?>
 
 <div class="container-fluid">
     <div class="jumbotron">
@@ -24,4 +25,4 @@ and open the template in the editor.
     </div>
 </div>
 
-<?php require './pages/footer/footer.php';?>
+<?php require 'pages/footer.php';?>
