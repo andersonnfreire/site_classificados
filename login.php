@@ -8,6 +8,23 @@
    {
        $email = addslashes($_POST['email']);
        $senha = md5($_POST['senha']);
+       
+       if($u->fazerLogin($pdo,$email,$senha))
+       {
+           ?>
+<script type="text/javascript">window.location.href="./";</script>
+           <?php
+       }
+       else
+       {
+           ?>
+            <div class="alert alert-danger">
+            Usuário e/ou Senha errados!        
+            </div>
+           <?php 
+       }
+       
+       
    }
    
 ?>

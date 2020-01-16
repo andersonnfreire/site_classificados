@@ -28,7 +28,7 @@
                                 <a class="nav-link" href="#">Meus Anúncios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Sair</a>
+                                <a class="nav-link" href="sair.php">Sair</a>
                             </li>
                         <?php else: ?>        
 
@@ -36,7 +36,7 @@
                                 <a class="nav-link" href="cadastra-se.php">Cadastra-se</a>
                             </li>     
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="login.php">Login</a>
                             </li>
                         <?php endif; ?>
                     </ul>
