@@ -25,7 +25,7 @@ if (empty($_SESSION['cLogin'])) {
             </tr>
         </thead>
         <?php
-        require './classes/Anuncios.php';
+        require 'classes/Anuncios.php';
         $a = new Anuncios();
         $anuncios = $a->getMeusAnuncios($pdo);
 
