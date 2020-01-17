@@ -17,18 +17,18 @@ if(isset($_POST['titulo']) && !empty($_POST['titulo']))
     $descricao = addslashes($_POST['descricao']);
     $estado = addslashes($_POST['estado']);
     
-    $a->addAnuncio($pdo,$titulo,$categoria,$valor,$descricao,$estado);
+    $a->editAnuncio($pdo,$_GET['id'],$titulo,$categoria,$valor,$descricao,$estado);
 
     ?>
     <div class="alert alert-success">
-        Produto Editado com sucesso!
+        Produto editado com sucesso!
     </div>
     <?php
 }
 
 if(isset($_GET['id']) && !empty($_GET['id']))
 {
-    $info = $e->getAnuncio($pdo,$_GET['id']);
+    $info = $a->getAnuncio($pdo,$_GET['id']);
 }
 else
 {
@@ -53,7 +53,7 @@ else
                 $cats = $c->getLista($pdo);
                 foreach ($cats as $cat):
                 ?>
-                <option value="<?php echo $cat['id']; ?>"><?php echo utf8_encode($cat['nome']); ?></option>
+                <option value="<?php echo $cat['id']; ?>" <?php echo ($info['id_categoria'] == $cat['id'])?'selected="selected"':''; ?>><?php echo utf8_encode($cat['nome']); ?></option>
                 <?php
                 endforeach;
                 ?>
@@ -61,22 +61,22 @@ else
             </div>
             <div class="form-group">
                 <label for="titulo">Titulo:</label>
-                <input type="text" name="titulo" id="titulo" class="form-control">
+                <input type="text" name="titulo" value="<?php echo $info['titulo'];?>" id="titulo" class="form-control">
             </div>
             <div class="form-group">
                 <label for="valor">Valor:</label>
-                <input type="text" name="valor" id="valor" class="form-control">
+                <input type="text" name="valor" id="valor" value="<?php echo $info['valor'];?>" class="form-control">
             </div>
             <div class="form-group">
                 <label for="descricao">Descrição:</label>
-                <textarea class="form-control" name="descricao"></textarea>
+                <textarea class="form-control" name="descricao"><?php echo $info['descricao'];?></textarea>
             </div>
             <div class="form-group">
                 <label for="estado">Estado de Conservação:</label>
                 <select name="estado" id="estado" class="form-control">
-                    <option value="0">Ruim</option>
-                    <option value="1">Bom</option>
-                    <option value="2">Ótimo</option>
+                    <option value="0" <?php echo ($info['estado'] == '0')?'selected="selected"':''; ?>>Ruim</option>
+                    <option value="1" <?php echo ($info['estado'] == '1')?'selected="selected"':''; ?>>Bom</option>
+                    <option value="2" <?php echo ($info['estado'] == '2')?'selected="selected"':''; ?>>Ótimo</option>
                 </select>
             </div>
             <input type="submit" value="Adicionar" class="btn btn-dark">

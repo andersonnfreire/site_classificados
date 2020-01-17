@@ -46,6 +46,30 @@ class Anuncios {
         $sql->execute();
     }
     function getAnuncio($pdo, $id) {
+        $array = array();
+        $sql = $pdo->prepare("SELECT * FROM anuncios WHERE id =:aid");
         
+        $sql->bindValue(":aid",$id);
+        $sql->execute();
+        
+        if($sql->rowCount()>0)
+        {
+            $array = $sql->fetch();
+        }
+        return $array;
+    }
+    function editAnuncio($pdo,$id,$titulo,$categoria,$valor,$descricao,$estado)
+    {
+        $sql = $pdo->prepare("UPDATE anuncios SET id_usuario =:ausuario,id_categoria =:acategoria,"
+                . "titulo =:atitulo ,descricao =:adescricao, valor =:avalor, estado =:aestado, id =:aid");
+        
+        $sql->bindValue(":acategoria",$categoria);
+        $sql->bindValue(":ausuario",$_SESSION['cLogin']);
+        $sql->bindValue(":atitulo",$titulo);
+        $sql->bindValue(":adescricao",$descricao);
+        $sql->bindValue(":avalor",floatval($valor));
+        $sql->bindValue(":aestado",$estado);
+        $sql->bindValue(":aid",$id);
+        $sql->execute();
     }
 }
