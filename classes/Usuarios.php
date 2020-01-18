@@ -6,6 +6,13 @@
  */
 class Usuarios {
     
+    function getTotalUsuarios($pdo) {
+        $sql = $pdo->query("SELECT count(*) as u FROM usuarios");
+        $row = $sql->fetch();
+        return $row['u'];
+    }
+    
+    
     function cadastrar($pdo,$nome,$email,$senha,$telefone)
     {
         $sql = $pdo->prepare("SELECT id FROM usuarios where email =:email");

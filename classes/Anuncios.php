@@ -1,11 +1,40 @@
 <?php
 
 /**
- * Description of anuncios
+ * Description of Anuncios
  *
  * @author andersonfreire
  */
 class Anuncios {
+    
+    
+    function getTotalAnuncios($pdo) {
+        $sql = $pdo->query("SELECT count(*) as c FROM anuncios");
+        $row = $sql->fetch();
+        return $row['c'];
+    }
+    function getUltimosAnuncios($pdo,$page,$perPage) {
+        $offset = 0;
+        $offset = ($page - 1) * $perPage;
+        
+        
+        $array = array();
+        $sql = $pdo->query("SELECT *,"
+                . "(select anuncios_imagens.url from anuncios_imagens where "
+                . "anuncios_imagens.id_anuncio = anuncios.id limit 1)as url,"
+                . "(select categorias.nome from categorias where "
+                . "categorias.id = anuncios.id_categoria) as categoria"
+                . " FROM anuncios ORDER BY id DESC limit $offset,$perPage");
+        $sql->execute();
+        
+        if($sql->rowCount()>0)
+        {
+            $array = $sql->fetchAll();
+        }
+        return $array;
+        
+    }
+        
     function getMeusAnuncios($pdo)
     {
         $array = array();
