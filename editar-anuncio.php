@@ -73,9 +73,9 @@ foreach ($cats as $cat):
         <div class="form-group">
             <label for="estado">Estado de Conservação:</label>
             <select name="estado" id="estado" class="form-control">
-                <option value="0" <?php echo ($info['estado'] == '0') ? 'selected="selected"' : ''; ?>>Ruim</option>
-                <option value="1" <?php echo ($info['estado'] == '1') ? 'selected="selected"' : ''; ?>>Bom</option>
-                <option value="2" <?php echo ($info['estado'] == '2') ? 'selected="selected"' : ''; ?>>Ótimo</option>
+                <option value="1" <?php echo ($info['estado'] == '1') ? 'selected="selected"' : ''; ?>>Ruim</option>
+                <option value="2" <?php echo ($info['estado'] == '2') ? 'selected="selected"' : ''; ?>>Bom</option>
+                <option value="3" <?php echo ($info['estado'] == '3') ? 'selected="selected"' : ''; ?>>Ótimo</option>
             </select>
         </div>
         <div class="form-group">

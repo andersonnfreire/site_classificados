@@ -8,9 +8,7 @@
 
         <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
         <link rel="stylesheet" href="assets/css/style.css"/>
-        <script type="text/javascript" src="assets/js/jquery-3.4.1.min.js" rel="stylesheet"></script>
-        <script type="text/javascript" src="assets/js/script.js" rel="stylesheet"></script>
-        <script type="text/javascript" src="assets/js/bootstrap.min.js" rel="stylesheet"></script>
+        
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
     <body>

@@ -8,23 +8,93 @@
 class Anuncios {
     
     
-    function getTotalAnuncios($pdo) {
-        $sql = $pdo->query("SELECT count(*) as c FROM anuncios");
+    function getTotalAnuncios($pdo,$filtros) {
+        
+        $filtrostring = array('1=1');
+        
+        if(!empty($filtros['categoria']))
+        {
+            $filtrostring[] = 'anuncios.id_categoria =:id';
+        }
+        if(!empty($filtros['preco']))
+        {
+            $filtrostring[] = 'anuncios.valor BETWEEN :preco1 AND :preco2';
+        }
+        if(!empty($filtros['estado']))
+        {
+            $filtrostring[] = 'anuncios.estado =:estado';
+        }
+        
+        
+        $sql = $pdo->prepare("SELECT count(*) as c FROM anuncios WHERE ". implode(' AND ',$filtrostring)."");
+        
+        if(!empty($filtros['categoria']))
+        {
+           $sql->bindValue(':id', $filtros['categoria']);
+        }
+        if(!empty($filtros['preco']))
+        {
+           $preco = explode('-', $filtros['preco']);
+           $sql->bindValue(':preco1', $preco[0]);
+           $sql->bindValue(':preco2', $preco[1]);
+        }
+        if(!empty($filtros['estado']))
+        {
+           $sql->bindValue(':estado', $filtros['estado']);
+        }
+        $sql->execute();
+
         $row = $sql->fetch();
         return $row['c'];
     }
-    function getUltimosAnuncios($pdo,$page,$perPage) {
+    function getUltimosAnuncios($pdo,$page,$perPage,$filtros) {
         $offset = 0;
         $offset = ($page - 1) * $perPage;
         
         
         $array = array();
-        $sql = $pdo->query("SELECT *,"
+        
+        $filtrosstring = array('1=1');
+        
+        if(!empty($filtros['categoria']))
+        {
+            $filtrosstring[] = 'anuncios.id_categoria =:idcat';
+        }
+        if(!empty($filtros['preco']))
+        {
+            $filtrosstring[] = 'anuncios.valor BETWEEN =:preco1 AND =:preco2';
+        }
+        if(!empty($filtros['estado']))
+        {
+            $filtrosstring[] = 'anuncios.estado =:estado';
+        }
+        
+        
+        
+        
+        
+        $sql = $pdo->prepare("SELECT *,"
                 . "(select anuncios_imagens.url from anuncios_imagens where "
                 . "anuncios_imagens.id_anuncio = anuncios.id limit 1)as url,"
                 . "(select categorias.nome from categorias where "
                 . "categorias.id = anuncios.id_categoria) as categoria"
-                . " FROM anuncios ORDER BY id DESC limit $offset,$perPage");
+                . " FROM anuncios WHERE ". implode(' AND ', $filtrosstring)." ORDER BY id DESC limit $offset,$perPage");
+        
+        
+        if(!empty($filtros['categoria']))
+        {
+           $sql->bindValue(':idcat', $filtros['categoria']);
+        }
+        if(!empty($filtros['preco']))
+        {
+           $preco = explode('-', $filtros['preco']);
+           $sql->bindValue(':preco1', $preco[0]);
+           $sql->bindValue(':preco2', $preco[1]);
+        }
+        if(!empty($filtros['estado']))
+        {
+           $sql->bindValue(':estado', $filtros['estado']);
+        }
         $sql->execute();
         
         if($sql->rowCount()>0)
@@ -95,7 +165,12 @@ class Anuncios {
     }
     function getAnuncio($pdo, $id) {
         $array = array();
-        $sql = $pdo->prepare("SELECT * FROM anuncios WHERE id =:aid");
+        $sql = $pdo->prepare("SELECT *,"
+                . "(select categorias.nome from categorias where "
+                . "categorias.id = anuncios.id_categoria) as categoria,"
+                . "(select usuarios.telefone from usuarios where "
+                . "usuarios.id = anuncios.id_usuario) as telefone"
+                . " FROM anuncios WHERE id =:aid");
         
         $sql->bindValue(":aid",$id);
         $sql->execute();
