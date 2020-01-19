@@ -62,7 +62,7 @@ class Anuncios {
         }
         if(!empty($filtros['preco']))
         {
-            $filtrosstring[] = 'anuncios.valor BETWEEN =:preco1 AND =:preco2';
+            $filtrosstring[] = 'anuncios.valor BETWEEN :preco1 AND :preco2';
         }
         if(!empty($filtros['estado']))
         {

@@ -70,6 +70,7 @@ and open the template in the editor.
                         <option value="51-100" <?php echo ($filtros['preco'] == '51-100')?'selected ="selected"':'' ?>>R$ 51 - 100</option>
                         <option value="101-200" <?php echo ($filtros['preco'] == '101-200')?'selected ="selected"':'' ?>>R$ 101 - 200</option>
                         <option value="201-500" <?php echo ($filtros['preco'] == '201-500')?'selected ="selected"':'' ?>>R$ 201 - 500</option>
+                        <option value="500-10000000" <?php echo ($filtros['preco'] == '500-10000000')?'selected ="selected"':'' ?>> Mais de R$500 </option>
                     </select>
                 </div>
                 <div class="form-group">
