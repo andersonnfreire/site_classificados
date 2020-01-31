@@ -46,12 +46,12 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <div>
             <label for="categoria">Categoria:</label>
             <select name="categoria" id="categoria" class="form-control">
-<?php
-require './classes/Categorias.php';
-$c = new Categorias();
-$cats = $c->getLista($pdo);
-foreach ($cats as $cat):
-    ?>
+                <?php
+                require './classes/Categorias.php';
+                $c = new Categorias();
+                $cats = $c->getLista($pdo);
+                foreach ($cats as $cat):
+                    ?>
                     <option value="<?php echo $cat['id']; ?>" <?php echo ($info['id_categoria'] == $cat['id']) ? 'selected="selected"' : ''; ?>><?php echo utf8_encode($cat['nome']); ?></option>
                     <?php
                 endforeach;
@@ -89,21 +89,20 @@ foreach ($cats as $cat):
                 </div>
                 <br>
                 <div class="card-body">
-                <?php foreach($info['fotos'] as $ft): ?>
-                    <div class="foto_item">
-                        <img src="assets/images/anuncios/<?php echo $ft['url']; ?>"
-                             class="foto_item img" border="0" />
-                        <a href="excluir-foto.php?id=<?php echo $ft['id'];?>" class="btn btn-dark">Excluir Imagem</a>
-                    </div>
-                <?php endforeach; ?>
+                    <?php foreach ($info['fotos'] as $ft): ?>
+                        <div class="foto_item">
+                            <img src="assets/images/anuncios/<?php echo $ft['url']; ?>"
+                                 class="foto_item img" border="0" />
+                            <a href="excluir-foto.php?id=<?php echo $ft['id']; ?>" class="btn btn-dark">Excluir Imagem</a>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
-            <br>
-            <input type="submit" value="Salvar" class="btn btn-dark">
-            </form>
+        </div>
+        <br>
+        <input type="submit" value="Salvar" class="btn btn-dark">
+    </form>
 
 
-        </div>    
-
-
+</div>
 <?php require './pages/footer.php'; ?>        
